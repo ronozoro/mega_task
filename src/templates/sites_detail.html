@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}{{ site_id.name }}{% endblock %}
+{% block menu_items %}
+
+    <li class="{% if site %}active{% endif %}" role="presentation">
+        <a href="{% url 'index' %}">Sites</a>
+    </li>
+    <li class="{% if not site %}active{% endif %}" role="presentation">
+        <a href="{% url 'summary' %}">Summary</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Site Details - {{ site_id.name }}</h1>
+
+        {% if site_log_ids %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <td><strong>Date</strong></td>
+                    <td><strong>A Value</strong></td>
+                    <td><strong>B Value</strong></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for log_id in site_log_ids %}
+                    <tr>
+                        <td>{{ log_id.date }}</td>
+                        <td>{{ log_id.a_value }}</td>
+                        <td>{{ log_id.b_value }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>
+                No DATA.
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

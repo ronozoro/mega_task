@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block menu_items %}
+
+    <li class="{% if site %}active{% endif %}" role="presentation">
+        <a href="{% url 'index' %}">Sites</a>
+    </li>
+    <li class="{% if not site %}active{% endif %}" role="presentation">
+        <a href="{% url 'summary' %}">Summary</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <a href="{% url 'summary' %}">
+            <button type="button" class="btn btn-primary {% if page_type == 'sum' %}active{% endif %}">Sum</button>
+        </a>
+        <a href="{% url 'average' %}">
+            <button type="button" class="btn btn-primary {% if page_type == 'avg' %}active{% endif %}">Average</button>
+        </a>
+        {% if list_of_sites %}
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <td><strong>Site</strong></td>
+                    <td><strong>A Value</strong></td>
+                    <td><strong>B Value</strong></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in list_of_sites %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.a_value|floatformat:2 }}</td>
+                        <td>{{ item.b_value|floatformat:2 }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>
+                No DATA.
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}
