@@ -39,7 +39,7 @@ def sites_summary_avg(request):
     cursor = connection.cursor()
     list_of_sites = []
     for site in site_ids:
-        cursor.execute("SELECT s.name as name,avg(l.a_value) as a_value,avg(l.b_value) as b_value FROM sites_site s,sites_sitelog l where l.site_id_id==s.id and  s.id=%s"%site.id,{'value':'name'})
+        cursor.execute("SELECT s.name as name,avg(l.a_value) as a_value,avg(l.b_value) as b_value FROM sites_site s,sites_sitelog l where l.site_id_id==s.id and  s.id=%s"%site.id)
         row = cursor.fetchall()
         col_names = cursor.description
         data=[{col_names[item][0]:col for item, col in enumerate(record)} for record in row]
